@@ -30,4 +30,15 @@ export default {
     padding: 20px 0;
     width: 100%;
   }
+
+  .search-box input {
+    border: 1px solid black;
+    border-width: 0 0 1px 0;
+    font-size: 28px;
+  }
+
+  .search-box input:focus {
+    outline: none;
+  }
+
 </style>

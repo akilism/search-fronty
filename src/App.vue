@@ -34,12 +34,17 @@ export default {
       console.log('search-submit:', searchTerm);
       this.searchTerm = searchTerm;
       this.runSearch(`search_articles.json?q=`, searchTerm);
+    },
+    'topic-search': function (topic) {
+      console.log('topic-search:', topic);
+      this.searchTerm = topic;
+      this.runSearch(`search_topics.json?q=`, topic);
     }
   },
   methods: {
     runSearch: function (searchType, searchTerm) {
       console.log(`${this.searchUrl}${searchType}${searchTerm}`);
-      this.searchRequest(this.searchUrl + searchTerm)
+      this.searchRequest(`${this.searchUrl}${searchType}${searchTerm}`)
       .then((results) => {
         if (results.length <= 0) {
           this.searchResults = [];
@@ -47,6 +52,9 @@ export default {
         }
         console.log('results:', results[0]._source);
         this.searchResults = results;
+      })
+      .catch((err) => {
+        console.error(err);
       });
     },
     searchRequest: function (url) {

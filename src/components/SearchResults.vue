@@ -1,11 +1,21 @@
 /*
 <template>
-  <h2>Topics</h2>
-  <ul class="topic-list">
-    <li v-for="topic in topics">
-      {{ topic.name }}
-    </li>
-  </ul>
+  <template v-if="topics.length > 0">
+    <h2>Topics</h2>
+    <ul class="topic-list">
+      <li v-for="topic in topics" v-on:click.prevent="topicSearch(topic.name)">
+        {{ topic.name }}
+      </li>
+    </ul>
+  </template>
+  <template v-if="contributors.length > 0">
+    <h2>Contributors</h2>
+    <ul class="contributor-list">
+      <li v-for="contributor in contributors" v-on:click.prevent="contributorSearch(contributor.id)">
+        {{ contributor.full_name }}
+      </li>
+    </ul>
+  </template>
   <h2>Articles</h2>
   <ul class="article-list">
     <li v-for="result in results">
@@ -27,21 +37,53 @@
 import _ from 'ramda';
 
 const pickTopics = (result) => {
-  return _.map(_.pick(['name']), result._source.topics);
+  return _.map(_.pick(['name', 'id']), result._source.topics);
+};
+
+const pickContributors = (result) => {
+  return _.map((contrib) => {
+    return _.pick(['contributor'], contrib).contributor;
+  }, result._source.contributions);
+};
+
+const id = (thing) => {
+  return thing.id;
+};
+
+const name = (thing) => {
+  return thing.name;
+};
+
+const uniqTopics = (topics) => {
+  return _.sortBy(name, _.uniqBy(id, topics));
+};
+
+const uniqContributors = (contributors) => {
+  return _.sortBy(name, _.uniqBy(id, contributors));
 };
 
 export default {
   computed: {
     topics: function () {
-      let t = _.flatten(this.results.map(pickTopics));
-      console.log('topics:', t);
-      return t;
+      const topics = _.flatten(this.results.map(pickTopics));
+      return uniqTopics(topics);
+    },
+    contributors: function () {
+      const contribs = _.flatten(this.results.map(pickContributors));
+      return uniqContributors(contribs);
     }
   },
   data () {
     return { };
   },
-  methods: { },
+  methods: {
+    topicSearch: function (topic) {
+      this.$dispatch('topic-search', topic);
+    },
+    contributorSearch: function (contributor) {
+      this.$dispatch('contributor-search', contributor);
+    }
+  },
   props: {
     'results': {
       required: true,
@@ -52,7 +94,12 @@ export default {
 </script>
 
 <style>
-  .topic-list {
+  h2 {
+    width: 100vw;
+  }
+
+  .topic-list,
+  .contributor-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -62,9 +109,17 @@ export default {
     border-bottom: 1px solid black;
   }
 
-  .topic-list li {
+  .topic-list li,
+  .contributor-list li {
     flex: 1;
     margin: 10px;
     white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .article-list li {
+    border-bottom: 1px solid black;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
   }
 </style>
