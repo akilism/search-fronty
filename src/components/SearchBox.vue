@@ -21,3 +21,13 @@ export default {
   }
 }
 </script>
+
+<style>
+  .search-box {
+    margin: 20px 0;
+    border: 1px solid black;
+    border-width: 1px 0;
+    padding: 20px 0;
+    width: 100%;
+  }
+</style>

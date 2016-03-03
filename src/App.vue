@@ -2,19 +2,9 @@
 <template>
   <div id="app">
     <search-box></search-box>
-    <ul v-if="searchResults.length > 0 && searchTerm">
-      <li v-for="result in searchResults">
-        <a v-bind:href="result._source.url">
-          <img class="article-image" v-bind:src="result._source.thumbnail_url" >
-        </a>
-        <h3 class="article-title">
-          <a v-bind:href="result._source.url">
-            {{result._source.title}}
-          </a>
-        </h3>
-        <div class="article-summary">{{ result._source.summary }}</div>
-      </li>
-    </ul>
+    <template v-if="searchResults.length > 0 && searchTerm">
+      <search-results v-bind:results="searchResults"></search-results>
+    </template>
     <h2 class="no-results" v-if="searchResults.length === 0 && searchTerm !== ''">
       No search results.
     </h2>
@@ -24,14 +14,16 @@
 
 <script>
 import SearchBox from './components/SearchBox';
+import SearchResults from './components/SearchResults';
 
 export default {
   components: {
-    SearchBox
+    SearchBox,
+    SearchResults
   },
   data: function () {
     return {
-      searchUrl: 'http://localhost:3000/search_articles.json?q=',
+      searchUrl: 'http://localhost:3000/',
       requestOptions: { method: 'GET', mode: 'no-cors' },
       searchResults: [],
       searchTerm: ''
@@ -41,12 +33,12 @@ export default {
     'search-submit': function (searchTerm) {
       console.log('search-submit:', searchTerm);
       this.searchTerm = searchTerm;
-      this.runSearch(searchTerm);
+      this.runSearch(`search_articles.json?q=`, searchTerm);
     }
   },
   methods: {
-    runSearch: function (searchTerm) {
-      console.log(this.searchUrl + searchTerm);
+    runSearch: function (searchType, searchTerm) {
+      console.log(`${this.searchUrl}${searchType}${searchTerm}`);
       this.searchRequest(this.searchUrl + searchTerm)
       .then((results) => {
         if (results.length <= 0) {
@@ -77,22 +69,20 @@ export default {
 </script>
 
 <style>
-  html {
-    height: 100%;
-  }
-
   body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+
   }
 
   #app {
-    margin-top: -100px;
-    max-width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100vw;
+    height: 100vh;
     font-family: Helvetica, sans-serif;
     text-align: center;
+    flex-wrap: wrap;
+    flex-direction: row;
   }
 
   ul {
