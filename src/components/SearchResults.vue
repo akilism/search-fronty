@@ -3,7 +3,7 @@
   <template v-if="topics.length > 0">
     <h2>Topics</h2>
     <ul class="topic-list">
-      <li v-for="topic in topics" v-on:click.prevent="topicSearch(topic.name)">
+      <li v-for="topic in topics" v-on:click.prevent="topicSearch(topic.id)">
         {{ topic.name }}
       </li>
     </ul>

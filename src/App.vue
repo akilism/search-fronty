@@ -39,6 +39,11 @@ export default {
       console.log('topic-search:', topic);
       this.searchTerm = topic;
       this.runSearch(`search_topics.json?q=`, topic);
+    },
+    'contributor-search': function (contributor) {
+      console.log('contributor-search:', contributor);
+      this.searchTerm = contributor;
+      this.runSearch(`search_contributors.json?q=`, contributor);
     }
   },
   methods: {
