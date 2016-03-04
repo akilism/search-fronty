@@ -33,7 +33,7 @@ export default {
     'search-submit': function (searchTerm) {
       console.log('search-submit:', searchTerm);
       this.searchTerm = searchTerm;
-      this.runSearch(`search_articles.json?q=`, searchTerm);
+      this.runSearch(`search.json?q=`, searchTerm);
     },
     'topic-search': function (topic) {
       console.log('topic-search:', topic);
