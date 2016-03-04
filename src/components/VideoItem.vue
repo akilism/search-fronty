@@ -19,7 +19,7 @@
 */
 
 <script>
-  import DateFilter from '../filters/Date';
+  import DateFilter from '../filters/DateFilter';
 
   export default {
     filters: { DateFilter },

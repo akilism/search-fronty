@@ -1,8 +1,8 @@
 /*
 <template>
-  <button-list v-bind:items="topics"       title="Topics"></button-list>
-  <icon-list   v-bind:items="contributors" title="Contributors"></icon-list>
-  <result-list v-bind:items="results"      title="Search Results"></result-list>
+  <button-list v-bind:items="topics"       title="(*′☉ω☉) Topics (☉ω☉′*)"></button-list>
+  <icon-list   v-bind:items="contributors" title="(*′☉ω☉) Contributors (☉ω☉′*)"></icon-list>
+  <result-list v-bind:items="results"      title="(*′☉ω☉) Search Results (☉ω☉′*)"></result-list>
 </template>
 */
 

@@ -16,7 +16,7 @@
         <div class="publish-date">{{ item.publish_date | DateFilter }}</div>
         {{ item.summary }}
         <br>
-        <a v-bind:href="item.url" class="article-read-time">{{ Math.round(Math.random() * 15) + 2}} min read</a>
+        <a v-bind:href="item.url" class="article-read-time">{{ Math.round(Math.random() * 10) + 2}} min read</a>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
 */
 
 <script>
-  import DateFilter from '../filters/Date';
+  import DateFilter from '../filters/DateFilter';
 
   export default {
     filters: { DateFilter },

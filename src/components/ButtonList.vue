@@ -59,6 +59,6 @@
 
   .button-list li:hover {
     background-color: #D8DBFB;
-    transform: scale(1.1);
+    transform: scale(1.5);
   }
 </style>
