@@ -9,14 +9,15 @@
 
 <script>
 export default {
-  data () {
-    return {
-      searchTerm: ''
-    }
-  },
   methods: {
     submit: function () {
       this.$dispatch('search-submit', this.searchTerm);
+    }
+  },
+  props: {
+    searchTerm: {
+      required: true,
+      type: String
     }
   }
 }

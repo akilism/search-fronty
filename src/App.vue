@@ -1,7 +1,7 @@
 /*
 <template>
   <div id="app">
-    <search-box></search-box>
+    <search-box v-bind:search-term="searchTerm"></search-box>
     <template v-if="searchResults.length > 0 && searchTerm">
       <search-results v-bind:results="searchResults"></search-results>
     </template>
@@ -36,14 +36,14 @@ export default {
       this.runSearch(`search.json?q=`, searchTerm);
     },
     'topic-search': function (topic) {
-      console.log('topic-search:', topic);
-      this.searchTerm = topic;
-      this.runSearch(`search_topics.json?q=`, topic);
+      console.log('topic-search:', topic.name, ':', topic.id);
+      this.searchTerm = topic.name;
+      this.runSearch(`search_topics.json?q=`, topic.id);
     },
     'contributor-search': function (contributor) {
-      console.log('contributor-search:', contributor);
-      this.searchTerm = contributor;
-      this.runSearch(`search_contributors.json?q=`, contributor);
+      console.log('contributor-search:', contributor.name, ':', contributor.id);
+      this.searchTerm = contributor.name;
+      this.runSearch(`search_contributors.json?q=`, contributor.id);
     }
   },
   methods: {

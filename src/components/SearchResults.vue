@@ -1,21 +1,7 @@
 /*
 <template>
-  <template v-if="topics.length > 0">
-    <h2>Topics</h2>
-    <ul class="topic-list">
-      <li v-for="topic in topics" v-on:click.prevent="topicSearch(topic.id)">
-        {{ topic.name }}
-      </li>
-    </ul>
-  </template>
-  <template v-if="contributors.length > 0">
-    <h2>Contributors</h2>
-    <ul class="contributor-list">
-      <li v-for="contributor in contributors" v-on:click.prevent="contributorSearch(contributor.id)">
-        {{ contributor.full_name }}
-      </li>
-    </ul>
-  </template>
+  <button-list v-bind:items="topics" title="Topics"></button-list>
+  <icon-list v-bind:items="contributors" title="Contributors"></icon-list>
   <h2>Articles</h2>
   <ul class="article-list">
     <li v-for="result in results">
@@ -35,14 +21,21 @@
 
 <script>
 import _ from 'ramda';
+import ButtonList from './ButtonList';
+import IconList from './IconList';
 
 const pickTopics = (result) => {
-  return _.map(_.pick(['name', 'id']), result._source.topics);
+  return _.map((t) => {
+    const topic = _.pick(['name', 'id'], t);
+    return {...topic, searchType: 'topic-search'};
+  }, result._source.topics);
 };
 
 const pickContributors = (result) => {
   return _.map((contrib) => {
-    return _.pick(['contributor'], contrib).contributor;
+    const contributor = _.pick(['contributor'], contrib).contributor;
+    const thumbnail_url = contributor.thumbnail_url || "https://video-images.vice.com/images/contributors/158/lede/GAYCATION_101.jpg";
+    return {...contributor, thumbnail_url: thumbnail_url, name: contributor.full_name, searchType: 'contributor-search'};
   }, result._source.contributions);
 };
 
@@ -63,6 +56,10 @@ const uniqContributors = (contributors) => {
 };
 
 export default {
+  components: {
+    ButtonList,
+    IconList
+  },
   computed: {
     topics: function () {
       const topics = _.flatten(this.results.map(pickTopics));
@@ -71,17 +68,6 @@ export default {
     contributors: function () {
       const contribs = _.flatten(this.results.map(pickContributors));
       return uniqContributors(contribs);
-    }
-  },
-  data () {
-    return { };
-  },
-  methods: {
-    topicSearch: function (topic) {
-      this.$dispatch('topic-search', topic);
-    },
-    contributorSearch: function (contributor) {
-      this.$dispatch('contributor-search', contributor);
     }
   },
   props: {
