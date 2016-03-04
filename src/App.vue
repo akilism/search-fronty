@@ -1,12 +1,14 @@
 /*
 <template>
   <div id="app">
+    <h2 v-if="searchResults.length <= 0">(๑◐︵◑๑) Search (๑◕︵◕๑)</h2>
+    <h2 v-if="searchResults.length > 0">(*′☉ω☉) Search (☉ω☉′*)</h2>
     <search-box v-bind:search-term="searchTerm"></search-box>
     <template v-if="searchResults.length > 0 && searchTerm">
       <search-results v-bind:results="searchResults"></search-results>
     </template>
     <h2 class="no-results" v-if="searchResults.length === 0 && searchTerm !== ''">
-      No search results.
+      (๑◐︵◑๑)(๑◕︵◕๑)No search results.(๑◕︵◕๑)(๑◐︵◑๑)
     </h2>
   </div>
 </template>
@@ -48,14 +50,14 @@ export default {
   },
   methods: {
     runSearch: function (searchType, searchTerm) {
-      console.log(`${this.searchUrl}${searchType}${searchTerm}`);
+      console.log(`hitting search end-point: ${this.searchUrl}${searchType}${searchTerm}`);
       this.searchRequest(`${this.searchUrl}${searchType}${searchTerm}`)
       .then((results) => {
         if (results.length <= 0) {
           this.searchResults = [];
           return false;
         }
-        console.log('results:', results[0]._source);
+        console.log(`# o' results: ${results.length}`);
         this.searchResults = results;
       })
       .catch((err) => {
@@ -89,7 +91,7 @@ export default {
   #app {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     max-width: 100vw;
     height: 100vh;
     font-family: Helvetica, sans-serif;

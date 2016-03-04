@@ -1,21 +1,8 @@
 /*
 <template>
-  <button-list v-bind:items="topics" title="Topics"></button-list>
-  <icon-list v-bind:items="contributors" title="Contributors"></icon-list>
-  <h2>Articles</h2>
-  <ul class="article-list">
-    <li v-for="result in results">
-      <a v-bind:href="result._source.url">
-        <img class="article-image" v-bind:src="result._source.thumbnail_url" >
-      </a>
-      <h3 class="article-title">
-        <a v-bind:href="result._source.url">
-          {{result._source.title}}
-        </a>
-      </h3>
-      <div class="article-summary">{{ result._source.summary }}</div>
-    </li>
-  </ul>
+  <button-list v-bind:items="topics"       title="Topics"></button-list>
+  <icon-list   v-bind:items="contributors" title="Contributors"></icon-list>
+  <result-list v-bind:items="results"      title="Search Results"></result-list>
 </template>
 */
 
@@ -23,6 +10,7 @@
 import _ from 'ramda';
 import ButtonList from './ButtonList';
 import IconList from './IconList';
+import ResultList from './ResultList';
 
 const pickTopics = (result) => {
   return _.map((t) => {
@@ -39,26 +27,16 @@ const pickContributors = (result) => {
   }, result._source.contributions);
 };
 
-const id = (thing) => {
-  return thing.id;
-};
-
-const name = (thing) => {
-  return thing.name;
-};
-
-const uniqTopics = (topics) => {
-  return _.sortBy(name, _.uniqBy(id, topics));
-};
-
-const uniqContributors = (contributors) => {
-  return _.sortBy(name, _.uniqBy(id, contributors));
-};
+const id = (thing) => { return thing.id; };
+const name = (thing) => { return thing.name; };
+const uniqTopics = (topics) => { return _.sortBy(name, _.uniqBy(id, topics)); };
+const uniqContributors = (contributors) => { return _.sortBy(name, _.uniqBy(id, contributors)); };
 
 export default {
   components: {
     ButtonList,
-    IconList
+    IconList,
+    ResultList
   },
   computed: {
     topics: function () {
@@ -69,6 +47,9 @@ export default {
       const contribs = _.flatten(this.results.map(pickContributors));
       return uniqContributors(contribs);
     }
+  },
+  created: function () {
+    console.log('result length:', this.results.length);
   },
   props: {
     'results': {
@@ -107,5 +88,11 @@ export default {
     border-bottom: 1px solid black;
     padding-bottom: 20px;
     margin-bottom: 40px;
+  }
+
+  .publish-date {
+    color: #a4a4a4;
+    font-size: 12px;
+    margin-bottom: 10px;
   }
 </style>

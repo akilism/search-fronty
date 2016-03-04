@@ -1,13 +1,11 @@
 /*
-<template>
-  <template v-if="items.length > 0">
-    <h2>{{ title }}</h2>
-    <ul class="button-list">
-      <li v-for="item in items" v-on:click.prevent="search(item)">
-        {{ item.name }}
-      </li>
-    </ul>
-  </template>
+<template v-if="items.length > 0">
+  <h2>{{ title }}</h2>
+  <ul class="button-list">
+    <li v-for="item in items" v-on:click.prevent="search(item)">
+      {{ item.name }}
+    </li>
+  </ul>
 </template>
 */
 

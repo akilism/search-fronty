@@ -1,14 +1,12 @@
 /*
-<template>
-  <template v-if="items.length > 0">
-    <h2>{{ title }}</h2>
-    <ul class="icon-list">
-      <li v-for="item in items" v-on:click.prevent="search(item)">
-        <img v-bind:src="item.thumbnail_url" class="icon">
-        {{ item.name }}
-      </li>
-    </ul>
-  </template>
+<template v-if="items.length > 0">
+  <h2>{{ title }}</h2>
+  <ul class="icon-list">
+    <li v-for="item in items" v-on:click.prevent="search(item)">
+      <img v-bind:src="item.thumbnail_url" class="icon">
+      {{ item.name }}
+    </li>
+  </ul>
 </template>
 */
 

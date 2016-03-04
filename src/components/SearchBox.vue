@@ -1,8 +1,8 @@
 /*
 <template>
   <div class="search-box">
-    <input  v-on:keyup.enter="submit" v-model="searchTerm" placeholder="Search fool.">
-    <button v-on:click.prevent="submit" name="submitSearch">Search</button>
+    <input  v-on:keyup.enter="submit" v-model="searchTerm" placeholder="">
+    <button v-on:click.prevent="submit" name="submitSearch">searchy</button>
   </div>
 </template>
 */
@@ -40,6 +40,13 @@ export default {
 
   .search-box input:focus {
     outline: none;
+  }
+
+  .search-box button {
+    font-size: 24px;
+    border-radius: 3px;
+    background: white;
+    border-width: 1px;
   }
 
 </style>
