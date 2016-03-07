@@ -55,7 +55,14 @@
     // padding: 5px;
     padding: 0 0 30px 0;
     border-bottom: 1px solid #ababab;
-    margin: 0 0 30px 0;
+    // margin: 0 15px 30px 15px;
   }
 
+  .result-list li:nth-child(odd) {
+    margin: 0 15px 30px 0;
+  }
+
+  .result-list li:nth-child(even) {
+    margin: 0 0 30px 15px;
+  }
 </style>
