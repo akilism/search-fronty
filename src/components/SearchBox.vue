@@ -1,7 +1,7 @@
 /*
 <template>
   <div class="search-box">
-    <input  v-on:keyup.enter="submit" v-model="searchTerm" placeholder="">
+    <input  v-on:keyup="lookAhead" v-on:keyup.enter="submit" v-model="searchTerm" placeholder="">
     <button v-on:click.prevent="submit" name="submitSearch">searchy</button>
   </div>
 </template>
@@ -12,6 +12,11 @@ export default {
   methods: {
     submit: function () {
       this.$dispatch('search-submit', this.searchTerm);
+    },
+    lookAhead: function () {
+      if (this.searchTerm.length >= 3) {
+        this.$dispatch('look-ahead', this.searchTerm);
+      }
     }
   },
   props: {

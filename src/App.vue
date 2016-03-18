@@ -46,6 +46,11 @@ export default {
       console.log('contributor-search:', contributor.name, ':', contributor.id);
       this.searchTerm = contributor.name;
       this.runSearch(`search_contributors.json?q=`, contributor.id);
+    },
+    'look-ahead': function (searchTerm) {
+      console.log('look-ahead:', searchTerm);
+      this.searchTerm = searchTerm;
+      this.runSearch(`look_ahead.json?q=`, searchTerm);
     }
   },
   methods: {

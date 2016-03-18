@@ -50,7 +50,7 @@
     white-space: nowrap;
     cursor: pointer;
     border: 1px solid black;
-    border-radius: 3px;
+    border-radius: 2px;
     background-color: #dfdfdf;
     padding: 5px;
     font-size: 12px;
