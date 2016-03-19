@@ -16,6 +16,8 @@ export default {
     lookAhead: function () {
       if (this.searchTerm.length >= 3) {
         this.$dispatch('look-ahead', this.searchTerm);
+      } else {
+        this.$dispatch('clear-results');
       }
     }
   },

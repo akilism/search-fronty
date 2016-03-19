@@ -32,15 +32,8 @@ export default {
     };
   },
   events: {
-    'search-submit': function (searchTerm) {
-      console.log('search-submit:', searchTerm);
-      this.searchTerm = searchTerm;
-      this.runSearch(`search.json?q=`, searchTerm);
-    },
-    'topic-search': function (topic) {
-      console.log('topic-search:', topic.name, ':', topic.id);
-      this.searchTerm = topic.name;
-      this.runSearch(`search_topics.json?q=`, topic.id);
+    'clear-results': function () {
+      this.searchResults = [];
     },
     'contributor-search': function (contributor) {
       console.log('contributor-search:', contributor.name, ':', contributor.id);
@@ -51,6 +44,16 @@ export default {
       console.log('look-ahead:', searchTerm);
       this.searchTerm = searchTerm;
       this.runSearch(`look_ahead.json?q=`, searchTerm);
+    },
+    'search-submit': function (searchTerm) {
+      console.log('search-submit:', searchTerm);
+      this.searchTerm = searchTerm;
+      this.runSearch(`search.json?q=`, searchTerm);
+    },
+    'topic-search': function (topic) {
+      console.log('topic-search:', topic.name, ':', topic.id);
+      this.searchTerm = topic.name;
+      this.runSearch(`search_topics.json?q=`, topic.id);
     }
   },
   methods: {

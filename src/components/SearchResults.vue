@@ -41,11 +41,12 @@ export default {
   computed: {
     topics: function () {
       const topics = _.flatten(this.results.map(pickTopics));
-      return uniqTopics(topics);
+      console.log(topics);
+      return uniqTopics(topics).slice(0, 20);
     },
     contributors: function () {
       const contribs = _.flatten(this.results.map(pickContributors));
-      return uniqContributors(contribs);
+      return uniqContributors(contribs).slice(0, 10);
     }
   },
   created: function () {
